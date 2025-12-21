@@ -1,0 +1,449 @@
+/* =========
+   Base
+========= */
+:root{
+  --bg: #000;
+  --frame: #3f3f3f;
+  --text: rgba(240,240,240,0.65);
+  --line: rgba(240,240,240,0.55);
+
+  --frame-margin: clamp(24px, 4vw, 64px);
+  --inner-pad: clamp(18px, 2.6vw, 44px);
+
+  --title-size: clamp(20px, 2.2vw, 34px);
+  --subtitle-size: clamp(16px, 1.7vw, 26px);
+
+  --fade-ms: 600ms;
+  --load-ms: 2600ms;
+
+  /* Curtain look（色はここを変えるだけでOK） */
+  --curtain-color: #5a0b0b;
+  --curtain-shadow: rgba(0,0,0,0.45);
+}
+
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
+
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden; /* Desktop1〜6：固定スクリーン */
+  font-family: ui-serif, "Times New Roman", Times, serif;
+}
+
+/* =========
+   Scene layout
+========= */
+.scene{
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.frame{
+  position: relative;
+  width: calc(100vw - (var(--frame-margin) * 2));
+  height: calc(100vh - (var(--frame-margin) * 2));
+  background: var(--frame);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+/* =========
+   Center text
+========= */
+.center{
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--inner-pad);
+  text-align: center;
+  z-index: 2;
+}
+
+.center__text{
+  margin: 0;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+  grid-area: 1 / 1; /* 1と2を完全に同じ位置に重ねる */
+  transition: opacity var(--fade-ms) ease;
+}
+
+.center__text--s1{
+  font-size: var(--title-size);
+  opacity: 1;
+}
+
+.center__text--s2{
+  font-size: var(--subtitle-size);
+  opacity: 0;
+}
+
+/* Scene2になったらテキスト差し替え */
+.is-scene2 .center__text--s1{ opacity: 0; }
+.is-scene2 .center__text--s2{ opacity: 1; }
+
+/* =========
+   Left progress UI
+========= */
+.ui-progress{
+  position: absolute;
+  left: var(--inner-pad);
+  bottom: var(--inner-pad);
+  display: grid;
+  grid-auto-flow: column;
+  gap: 14px;
+  align-items: end;
+  z-index: 3;
+}
+
+.ui-progress__label{
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  opacity: 0.7;
+  transition: opacity var(--fade-ms) ease;
+}
+
+.ui-progress__line{
+  width: 1px;
+  height: 100%;
+  background: var(--line);
+  transform-origin: bottom;
+  transform: scaleY(0.18);
+  transition: transform var(--load-ms) ease, opacity var(--fade-ms) ease;
+}
+
+/* Scene2（直線が上まで伸びる） */
+.is-scene2 .ui-progress{
+  top: var(--inner-pad);
+  bottom: var(--inner-pad);
+  align-items: stretch;
+}
+
+.is-scene2 .ui-progress__line{
+  height: calc(100vh - (var(--frame-margin) * 2) - (var(--inner-pad) * 2));
+  transform: scaleY(1);
+}
+
+.is-scene2 .ui-progress__label{
+  opacity: 0;
+}
+
+/* =========
+   ENTER button
+========= */
+.enter{
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--inner-pad) + 6px);
+  transform: translateX(-50%);
+  padding: 10px 18px;
+
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.35);
+  color: rgba(240,240,240,0.7);
+  letter-spacing: 0.18em;
+  font-size: 14px;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--fade-ms) ease;
+
+  z-index: 20; /* カーテンより上＝必ず押せる */
+}
+
+.is-scene2 .enter{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.enter:hover{
+  border-color: rgba(255,255,255,0.55);
+  color: rgba(240,240,240,0.85);
+}
+
+/* =========
+   Curtain (GSAP controlled)
+========= */
+.curtain{
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 55%;
+  z-index: 10;
+
+  /* 最初は見えない＆クリックを邪魔しない */
+  opacity: 0;
+  pointer-events: none;
+
+  background:
+    linear-gradient(90deg,
+      rgba(255,255,255,0.06),
+      rgba(255,255,255,0.0) 18%,
+      rgba(0,0,0,0.16) 50%,
+      rgba(255,255,255,0.0) 82%,
+      rgba(255,255,255,0.06)
+    ),
+    linear-gradient(180deg,
+      rgba(0,0,0,0.22),
+      rgba(0,0,0,0.0) 30%,
+      rgba(0,0,0,0.35)
+    ),
+    var(--curtain-color);
+
+  box-shadow: inset 0 0 40px var(--curtain-shadow);
+  will-change: transform, opacity;
+}
+
+.curtain--left{ left: 0; }
+.curtain--right{ right: 0; }
+
+/* ENTER後：UIは消す（舞台へ渡す） */
+#intro.is-curtain-active .center,
+#intro.is-curtain-active .ui-progress,
+#intro.is-curtain-active .enter{
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+/* =========
+   Reduced motion
+========= */
+@media (prefers-reduced-motion: reduce){
+  .center__text,
+  .ui-progress__label,
+  .ui-progress__line,
+  .enter{
+    transition: none !important;
+  }
+}
+
+/* =========================
+   Stage layer (behind curtain)
+========================= */
+.stageLayer{
+  position: absolute;
+  inset: 0;
+  z-index: 1;              /* center(2)より奥 */
+  opacity: 0;              /* ENTER前は見せない */
+  transition: opacity 500ms ease;
+  pointer-events: none;
+}
+
+/* ENTER後（舞台を“灯す”） */
+#intro.is-curtain-active .stageLayer{
+  opacity: 1;
+}
+
+/* 仮の舞台背景（あとでPNG差し替え可） */
+.stageLayer__bg{
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 65%, rgba(255,255,255,0.08), rgba(0,0,0,0.95));
+}
+
+/* 舞台奥の主役配置（遠景） */
+.stageLayer__hero{
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+/* シルエット本体：遠くに見せる */
+.heroSilhouette1{
+  width: min(42vw, 420px);
+  height: auto;
+  transform: translateY(6vh);
+}
+
+/* 糸：最初は見せない（後で出す用） */
+.heroStrings{
+  position: absolute;
+  width: min(34vw, 360px);
+  height: auto;
+  transform: translateY(6vh);
+  opacity: 0;
+}
+
+/* ===================================
+   Flash overlay (Top -> Bottom)
+=================================== */
+.flash{
+  position: fixed;
+  top: var(--frame-margin);
+  left: var(--frame-margin);
+  right: var(--frame-margin);
+  bottom: var(--frame-margin);
+
+  background: #fff;
+  z-index: 999;
+  transform: translateY(-110%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Home scene base */
+.scene[hidden]{ display: none; }
+
+.scene--home .frame{
+  position: relative;
+  width: calc(100vw - (var(--frame-margin) * 2));
+  height: calc(100vh - (var(--frame-margin) * 2));
+  background: #000; /* 外の黒 */
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+/* Topbar */
+.topbar{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  display: grid;
+  grid-template-columns: 120px 1fr 200px;
+  align-items: center;
+  padding: 0 20px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.22), rgba(0,0,0,0.35));
+  color: rgba(240,240,240,0.85);
+  z-index: 5;
+}
+
+.topbar__dot{
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: rgba(240,240,240,0.75);
+}
+
+.topbar__nav{
+  display: flex;
+  gap: 26px;
+  justify-content: center;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+}
+
+.topbar__link{
+  color: rgba(240,240,240,0.75);
+  text-decoration: none;
+}
+.topbar__link.is-active{ color: rgba(240,240,240,0.95); }
+
+.topbar__right{
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+.topbar__btn{
+  background: transparent;
+  border: 0;
+  color: rgba(240,240,240,0.85);
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+/* Hero area */
+.homeHero{
+  position: absolute;
+  inset: 72px 0 190px 0; /* 上はバナー分、下はカルーセル分 */
+  display: grid;
+  place-items: center;
+}
+
+.homeHero__bg{
+  position: absolute;
+  inset: 30px 60px;
+  border-radius: 24px;
+  background: radial-gradient(ellipse at 50% 30%, rgba(255,255,255,0.14), rgba(0,0,0,0.92));
+  filter: blur(0px);
+  opacity: 0.95;
+}
+
+.homeHero__card{
+  position: absolute;
+  left: 160px;
+  bottom: 90px;
+  width: min(520px, 46vw);
+  padding: 20px 22px;
+  background: rgba(220,220,220,0.55);
+  border-radius: 10px;
+  color: rgba(20,20,20,0.85);
+}
+
+.homeHero__title{
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  letter-spacing: 0.06em;
+}
+.homeHero__text{
+  margin: 0 0 14px 0;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.homeHero__play{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 6px;
+  background: #e35b55;
+  color: #fff;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+}
+
+.homeHero__playIcon{
+  width: 0;
+  height: 0;
+  border-left: 10px solid #fff;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+}
+
+/* Carousel (3枚常時見える / 4枚目が右から入って左へ抜ける) */
+.homeCarousel{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18px;
+  height: 170px; /* ここが「縦長カード感」の基準 */
+  z-index: 4;
+}
+
+.carouselViewport{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  padding: 0 60px;
+}
+
+.carouselTrack{
+  height: 100%;
+  display: flex;
+  gap: 46px;
+  align-items: center;
+  will-change: transform;
+}
+
+.epCard{
+  flex: 0 0 260px; /* カード幅 */
+  height: 100%;
+  border-radius: 16px;
+  background: rgba(230,230,230,0.85);
+  display: grid;
+  place-items: center;
+  color: rgba(0,0,0,0.6);
+  font-size: 14px;
+  letter-spacing: 0.1em;
+}
