@@ -1,0 +1,228 @@
+.topPage{
+  background: #0b0b0b;
+  color: rgba(245,245,245,.92);
+}
+
+/* topbar */
+.topbar{
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  height: 72px;
+  display: grid;
+  grid-template-columns: 120px 1fr 200px;
+  align-items: center;
+  padding: 0 20px;
+  background: linear-gradient(to bottom, rgba(255,255,255,.18), rgba(0,0,0,.55));
+  backdrop-filter: blur(6px);
+}
+
+.topbar__left{ display:flex; align-items:center; }
+.topbar__dot{
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: rgba(240,240,240,.75);
+  display: inline-block;
+}
+
+.topbar__nav{
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  font-size: 16px;
+  letter-spacing: .08em;
+}
+
+.topbar__link{
+  color: rgba(240,240,240,.85);
+  text-decoration: none;
+  padding: 10px 6px;
+  opacity: .85;
+}
+.topbar__link:hover{ opacity: 1; }
+.topbar__link.is-active{
+  opacity: 1;
+  text-shadow: 0 0 14px rgba(255,255,255,.25);
+}
+
+.topbar__right{
+  display:flex;
+  justify-content:flex-end;
+  gap: 18px;
+}
+.topbar__btn{
+  color: rgba(240,240,240,.85);
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.04);
+}
+.topbar__btn:hover{ background: rgba(255,255,255,.08); }
+
+/* main */
+.topMain{
+  width: min(1100px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 26px 0 80px;
+}
+
+/* KV */
+.kv{
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+}
+.kv__placeholder{
+  height: clamp(220px, 42vh, 520px);
+  background:
+    radial-gradient(120% 90% at 30% 20%, rgba(255,255,255,.10), rgba(0,0,0,0)),
+    linear-gradient(to bottom, rgba(255,255,255,.06), rgba(0,0,0,.25));
+}
+.kv__img{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* article head */
+.articleHead{
+  margin-top: 18px;
+  border-radius: 16px;
+  background: #1c1c1c;
+  padding: 34px 0;
+}
+.articleHead__inner{
+  width: min(980px, calc(100% - 48px));
+  margin: 0 auto;
+}
+.articleHead__title{
+  margin: 0;
+  font-size: 26px;
+  letter-spacing: .06em;
+  font-weight: 600;
+}
+.articleHead__date{
+  margin: 10px 0 0;
+  font-size: 12px;
+  opacity: .78;
+}
+.articleHead__lead{
+  margin: 14px 0 0;
+  max-width: 760px;
+  line-height: 1.85;
+  font-size: 13px;
+  opacity: .9;
+}
+
+/* progress */
+.progress{
+  margin-top: 18px;
+  height: 2px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255,255,255,.18);
+}
+.progress__bar{
+  display:block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  transform: scaleX(.35); /* 仮 */
+  background: #4f40ff;
+}
+
+/* EP blocks */
+.ep{
+  margin-top: 22px;
+  border-top: 1px solid rgba(255,255,255,.10);
+  padding-top: 22px;
+}
+.ep__inner{
+  width: min(980px, calc(100% - 48px));
+  margin: 0 auto;
+}
+.ep__title{
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: .04em;
+}
+.ep__desc{
+  margin: 8px 0 0;
+  opacity: .78;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.ep__row{
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 22px;
+  align-items: start;
+}
+.ep__thumb{
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.08);
+}
+.ep__thumb img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display:block;
+}
+.ep__thumbPlaceholder{
+  width: 100%;
+  height: 100%;
+  display:grid;
+  place-items:center;
+  opacity: .55;
+  font-size: 12px;
+  letter-spacing: .08em;
+}
+.ep__thumbPlaceholder::after{
+  content: "GIF / IMAGE";
+}
+
+.ep__text p{
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.9;
+  opacity: .86;
+  max-width: 520px;
+}
+.ep__link{
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: rgba(245,245,245,.92);
+  background: rgba(255,255,255,.06);
+  opacity: .86;
+}
+.ep__link:hover{ opacity: 1; background: rgba(255,255,255,.10); }
+
+/* footer */
+.topFooter{
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255,255,255,.10);
+}
+.topFooter__back{
+  color: rgba(245,245,245,.90);
+  text-decoration: none;
+  opacity: .85;
+}
+.topFooter__back:hover{ opacity: 1; }
+
+@media (max-width: 880px){
+  .topbar{ grid-template-columns: 84px 1fr 160px; height: 64px; }
+  .topbar__nav{ gap: 18px; font-size: 14px; }
+  .ep__row{ grid-template-columns: 1fr; }
+}

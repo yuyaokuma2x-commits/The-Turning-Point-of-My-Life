@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Top</title>
+
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./top.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+</head>
+
+<body class="topPage">
+  <div id="pageWipe" aria-hidden="true"></div>
+
+  <header class="topbar" role="banner">
+    <div class="topbar__left">
+      <a class="topbar__dot" href="./index.html" aria-label="Back to theater"></a>
+    </div>
+
+    <nav class="topbar__nav" aria-label="Chapters">
+      <a class="topbar__link is-active" href="./top.html">Top</a>
+      <a class="topbar__link" href="#ep1">EP1</a>
+      <a class="topbar__link" href="#ep2">EP2</a>
+      <a class="topbar__link" href="#ep3">EP3</a>
+      <a class="topbar__link" href="#ep4">EP4</a>
+    </nav>
+
+    <div class="topbar__right">
+      <a class="topbar__btn" href="./index.html">Back</a>
+      <a class="topbar__btn" href="#ep1">Next</a>
+    </div>
+  </header>
+
+  <main class="topMain" role="main">
+    <section class="kv" aria-label="Key visual">
+      <!-- 画像が出来たらこれに差し替え -->
+      <!-- <img class="kv__img" src="./assets/top_kv.png" alt="" /> -->
+      <div class="kv__placeholder" aria-hidden="true"></div>
+    </section>
+
+    <section class="articleHead" aria-label="Intro">
+      <div class="articleHead__inner">
+        <div class="articleHead__meta">
+          <h1 class="articleHead__title">ほんとうの幸せに気づくまで</h1>
+          <p class="articleHead__date">2025 11月27日 / あらすじ</p>
+        </div>
+
+        <p class="articleHead__lead">
+          ここにリード文（仮）を入れます。あとで差し替えOK。<br />
+          展示会っぽく、短い導入→章の並び、の流れを想定。
+        </p>
+
+        <div class="progress" aria-hidden="true">
+          <span class="progress__bar"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- EP blocks -->
+    <section id="ep1" class="ep" aria-label="Episode 1">
+      <div class="ep__inner">
+        <h2 class="ep__title">エピソード1</h2>
+        <p class="ep__desc">ここにEP1の説明（仮）。展示キャプションっぽく短めでOK。</p>
+
+        <div class="ep__row">
+          <div class="ep__thumb">
+            <!-- <img src="./assets/ep1.gif" alt="EP1 gif" /> -->
+            <div class="ep__thumbPlaceholder" aria-hidden="true"></div>
+          </div>
+
+          <div class="ep__text">
+            <p>
+              1. エピソード1<br />
+              「あらすじ要約（仮）」<br />
+              展示文：短くてもOK。あとで入れ替え想定。
+            </p>
+            <a class="ep__link" href="./ep1.html">→ EP1へ（あとで作る）</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ep2" class="ep" aria-label="Episode 2">
+      <div class="ep__inner">
+        <h2 class="ep__title">エピソード2</h2>
+        <p class="ep__desc">ここにEP2の説明（仮）。展示の壁テキストのイメージ。</p>
+
+        <div class="ep__row">
+          <div class="ep__thumb">
+            <!-- <img src="./assets/ep2.gif" alt="EP2 gif" /> -->
+            <div class="ep__thumbPlaceholder" aria-hidden="true"></div>
+          </div>
+
+          <div class="ep__text">
+            <p>EP2の展示テキスト（仮）。</p>
+            <a class="ep__link" href="./ep2.html">→ EP2へ（あとで作る）</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ep3" class="ep" aria-label="Episode 3">
+      <div class="ep__inner">
+        <h2 class="ep__title">エピソード3</h2>
+        <p class="ep__desc">ここにEP3の説明（仮）。展示動線としては「読み→見る→余韻」。</p>
+
+        <div class="ep__row">
+          <div class="ep__thumb">
+            <!-- <img src="./assets/ep3.gif" alt="EP3 gif" /> -->
+            <div class="ep__thumbPlaceholder" aria-hidden="true"></div>
+          </div>
+
+          <div class="ep__text">
+            <p>EP3の展示テキスト（仮）。</p>
+            <a class="ep__link" href="./ep3.html">→ EP3へ（あとで作る）</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ep4" class="ep" aria-label="Episode 4">
+      <div class="ep__inner">
+        <h2 class="ep__title">エピソード4</h2>
+        <p class="ep__desc">ここにEP4の説明（仮）。ラストは展示室の出口へ繋がる感じ。</p>
+
+        <div class="ep__row">
+          <div class="ep__thumb">
+            <!-- <img src="./assets/ep4.gif" alt="EP4 gif" /> -->
+            <div class="ep__thumbPlaceholder" aria-hidden="true"></div>
+          </div>
+
+          <div class="ep__text">
+            <p>EP4の展示テキスト（仮）。</p>
+            <a class="ep__link" href="./ep4.html">→ EP4へ（あとで作る）</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="topFooter" aria-label="Footer">
+      <a class="topFooter__back" href="./index.html">← 劇場（index）へ戻る</a>
+    </footer>
+  </main>
+
+  <script src="./functions.js"></script>
+
+  <script>
+    // アンカーを気持ちよく（必須じゃない）
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener("click", (e) => {
+        const id = a.getAttribute("href");
+        const el = document.querySelector(id);
+        if (!el) return;
+        e.preventDefault();
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+  </script>
+</body>
+</html>
+

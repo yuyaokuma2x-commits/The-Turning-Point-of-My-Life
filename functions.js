@@ -1,244 +1,277 @@
 /**
- * Desktop1 -> Desktop2（ロードで切替）
- * Desktop2でENTER表示 → ENTERで同一画面のままカーテンが開く（GSAP）
+ * index.html 用 + 共通ページ遷移
+ * - Scene1: "The answer..." + Loading
+ * - Scene2: タイトル表示 + Enter出現
+ * - Enter: カーテン → フラッシュ → home表示 → カルーセル自動
  */
+
 document.addEventListener("DOMContentLoaded", () => {
   const root = document.documentElement;
 
-  // 2〜3秒（CSSの --load-ms と合わせる）
+  // ===== Scene switch (Desktop1 -> Desktop2) =====
   const LOAD_MS = 2600;
-
-  // 初期はScene1
   root.classList.remove("is-scene2");
 
-  // Scene2へ
-  window.setTimeout(() => {
-    root.classList.add("is-scene2");
+  const loadingEl = document.querySelector(".intro__loading");
+function animateLoadingBar(ms){
+  if(!loadingEl) return;
+  const start = performance.now();
+  function tick(now){
+    const t = Math.min(1, (now - start) / ms);
+    loadingEl.style.setProperty("--load", t);
+    if(t < 1) requestAnimationFrame(tick);
+  }
+  loadingEl.style.setProperty("--load", 0);
+  requestAnimationFrame(tick);
+}
+animateLoadingBar(LOAD_MS);
 
-    // aria-hidden更新
-    const s1 = document.querySelector(".center__text--s1");
-    const s2 = document.querySelector(".center__text--s2");
-    if (s1 && s2) {
-      s1.setAttribute("aria-hidden", "true");
-      s2.setAttribute("aria-hidden", "false");
-    }
-  }, LOAD_MS);
 
-  // ===== Curtain (GSAP) =====
+  // ===== Theater elements =====
   const intro = document.getElementById("intro");
   const enterBtn = document.getElementById("enterBtn");
   const curtainL = document.querySelector(".curtain--left");
   const curtainR = document.querySelector(".curtain--right");
 
-  if (!intro || !enterBtn || !curtainL || !curtainR) return;
+  const home = document.getElementById("home");
+  const flash = document.getElementById("flash");
+  const heroWrap = document.querySelector(".stageLayer__hero");
+  const track = document.getElementById("carouselTrack");
+
+  // このページにintroが無ければここで終了（top.html等）
+  if (!intro || !enterBtn) return;
 
   const prefersReduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const hasCurtain = !!(window.gsap && curtainL && curtainR);
 
-  // GSAP timeline（CodePen寄せ：4秒 / 畳まれる / 回転 / 少し縦に伸びる）
-const tl = gsap.timeline({ paused: true });
+  // ===== Enter Lock/Unlock (B案の本体) =====
+  function lockEnter() {
+    // 見た目（CSSで効かせる用）
+    intro.classList.add("is-enter-locked");
 
-// 初期状態：閉じてる・見えない
-gsap.set([curtainL, curtainR], {
-  opacity: 0,
-  xPercent: 0,
-  rotation: 0,
-  scaleX: 1,
-  scaleY: 1,
-  filter: "brightness(1.8)",   // 立ち上がりの照明感（任意）
-  transformOrigin: "top left"  // いったん仮（個別に上書き）
-});
+    // 操作を止める（buttonでもaでも効く）
+    enterBtn.setAttribute("aria-disabled", "true");
+    enterBtn.setAttribute("tabindex", "-1");
 
-// 内側で畳まれる感じのために origin を内側上に
-gsap.set(curtainL, { transformOrigin: "top right" });
-gsap.set(curtainR, { transformOrigin: "top left" });
+    // もし <button> なら disabled も効かせる
+    if ("disabled" in enterBtn) enterBtn.disabled = true;
+  }
 
-// ① 出現（すぐ）
-tl.to([curtainL, curtainR], {
-  opacity: 1,
-  duration: 0.2,
-  ease: "power1.out"
-}, 0);
+  function unlockEnter() {
+    intro.classList.remove("is-enter-locked");
 
-// ② 明るさを落ち着かせる（CodePenの「brightness 180%→100%」っぽさ）
-tl.to([curtainL, curtainR], {
-  filter: "brightness(1)",
-  duration: 2,
-  ease: "power1.out"
-}, 0);
+    enterBtn.setAttribute("aria-disabled", "false");
+    enterBtn.removeAttribute("tabindex");
 
-// ③ 開く（4秒 / ease-in-out / 畳まれる＋回転＋縦に少し伸びる）
-tl.to(curtainL, {
-  xPercent: -100,
-  rotation: 20,
-  scaleX: 0,
-  scaleY: 2,
-  duration: 4,
-  ease: "power1.inOut"
-}, 0);
+    if ("disabled" in enterBtn) enterBtn.disabled = false;
+  }
 
-tl.to(curtainR, {
-  xPercent: 100,
-  rotation: -20,
-  scaleX: 0,
-  scaleY: 2,
-  duration: 4,
-  ease: "power1.inOut"
-}, 0);
+  // 初期はロック（scene2になるまで）
+  lockEnter();
 
+  // scene2へ移行したタイミングで解除
+  window.setTimeout(() => {
+    root.classList.add("is-scene2");
 
-  const openCurtain = () => {
-    // Desktop2以降だけ反応
-    if (!root.classList.contains("is-scene2")) return;
+    // テキスト切替（あなたの元コード踏襲）
+    const s1 = document.querySelector(".centerText__s1");
+    const s2 = document.querySelector(".centerText__s2");
+    if (s1 && s2) {
+      s1.setAttribute("aria-hidden", "true");
+      s2.setAttribute("aria-hidden", "false");
+    }
 
-    // 連打防止
-    if (intro.classList.contains("is-curtain-open")) return;
+    unlockEnter();
+  }, LOAD_MS);
 
-    // UIを消す（舞台へ）
-    intro.classList.add("is-curtain-active");
+  // ===== Home表示 + カルーセル =====
+  let didStartToHome = false;
+  let carouselTimer = null;
 
-    
+  function switchToHome() {
+    if (intro) intro.hidden = true;
+    if (home) home.hidden = false;
+     // ★ 追加：Enterを消す（フラッシュ後は不要）
+  if (enterBtn) {
+    enterBtn.hidden = true;                 // これだけでもOK
+    enterBtn.style.display = "none";        // 念のため確実に消す
+  }
 
-    if (prefersReduce) {
-      // 動きなし：即開く
-      gsap.set([curtainL, curtainR], { opacity: 1 });
-      gsap.set(curtainL, { xPercent: -110 });
-      gsap.set(curtainR, { xPercent: 110 });
-      intro.classList.add("is-curtain-open");
+  if (home) home.hidden = false;
+  }
+
+  function startCarouselLoop() {
+    if (!track || !window.gsap) return;
+    if (track.children.length < 2) return;
+
+    const STEP = 276; // 260 + gap16（あなたの元コード）
+    if (carouselTimer) clearInterval(carouselTimer);
+
+    carouselTimer = setInterval(() => {
+      gsap.to(track, {
+        duration: 0.9,
+        x: `-=${STEP}`,
+        ease: "power2.inOut",
+        onComplete: () => {
+          track.appendChild(track.children[0]);
+          gsap.set(track, { x: 0 });
+        },
+      });
+    }, 3400);
+  }
+
+  function lightDropToHome() {
+    // GSAP or flash が無い場合は即home
+    if (!window.gsap || !flash) {
+      switchToHome();
+      startCarouselLoop();
       return;
     }
 
-    // アニメ再生
-    tl.play(0);
-
-    // 終了フラグ
-    tl.eventCallback("onComplete", () => {
-      intro.classList.add("is-curtain-open");
-       // ★ここを追加：カーテンが開ききったら自動で次へ
-  startToHome();
-});
-  };
-  enterBtn.addEventListener("click", openCurtain);
-
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") openCurtain();
-  });
-// ====== Auto flow: zoom -> light drop -> switch Home -> carousel loop ======
-const home = document.getElementById("home");
-const flash = document.getElementById("flash");
-const heroWrap = document.querySelector(".stageLayer__hero");
-const track = document.getElementById("carouselTrack");
-
-let didStartToHome = false;
-let carouselTimer = null;
-
-function startToHome(){
-  if (didStartToHome) return;
-  didStartToHome = true;
-
-  // prefers-reduced-motion: 即切替（酔い防止）
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reduce){
-    switchToHome();
-    startCarouselLoop();
-    return;
-  }
-
-  // 1) ズーム（カメラが近づく）
-  // ※heroWrap が無い場合でも落ちないようにガード
-  if (window.gsap && heroWrap){
-    gsap.to(heroWrap, {
-      duration: 2.4,
-      scale: 3.2,          // ここで寄りの強さ調整
-      y: 60,               // ちょい下へ寄る（雰囲気）
-      ease: "power2.inOut",
-      onComplete: () => {
-        lightDropToHome();
-      }
+    gsap.set(flash, {
+      opacity: 1,
+      clipPath: "circle(0% at 50% 50%)",
+      webkitClipPath: "circle(0% at 50% 50%)",
     });
-  } else {
-    // GSAP無い/要素無いなら即白へ
-    lightDropToHome();
+
+    gsap.timeline()
+      .to(flash, {
+        duration: 1.5,
+        clipPath: "circle(150% at 50% 50%)",
+        webkitClipPath: "circle(150% at 50% 50%)",
+        ease: "power2.out",
+      })
+      .add(() => {
+        switchToHome();
+        startCarouselLoop();
+      })
+      .to(flash, { duration: 0.25, opacity: 0, ease: "power1.out" })
+      .set(flash, {
+        clipPath: "circle(0% at 50% 50%)",
+        webkitClipPath: "circle(0% at 50% 50%)",
+      });
   }
-}
 
-function lightDropToHome(){
-  if (!window.gsap || !flash){
-    switchToHome();
-    startCarouselLoop();
-    return;
-  }
+  function startToHome() {
+    if (didStartToHome) return;
+    didStartToHome = true;
 
-  // 白い板：上から落ちて覆う → 裏でHome切替 → 下へ抜ける
-  gsap.set(flash, { opacity: 1, yPercent: -110 });
-
-  gsap.timeline()
-    .to(flash, {
-      duration: 0.65,
-      yPercent: 0,
-      ease: "power2.in"
-    })
-    .add(() => {
+    if (prefersReduce || !window.gsap) {
       switchToHome();
-    })
-    .to(flash, {
-      duration: 0.7,
-      yPercent: 110,
-      ease: "power2.out"
-    })
-    .to(flash, {
-      duration: 0.2,
-      opacity: 0
-    });
+      startCarouselLoop();
+      return;
+    }
+
+    if (heroWrap) {
+      gsap.to(heroWrap, {
+        duration: 2.4,
+        scale: 1.15,
+        y: 40,
+        ease: "power2.inOut",
+        onComplete: () => lightDropToHome(),
+      });
+    } else {
+      lightDropToHome();
+    }
+  }
+
+
+function openCurtain() {
+  // ★B案：scene2になるまで一切反応させない
+  if (!root.classList.contains("is-scene2")) return;
+
+  // ★Enterを押した瞬間に消す（即時・確実）
+  if (enterBtn) {
+    enterBtn.disabled = true;
+    enterBtn.setAttribute("aria-disabled", "true");
+    enterBtn.style.pointerEvents = "none";
+    enterBtn.style.opacity = "0";
+    enterBtn.style.display = "none";
+  }
+
+  // UIを消す
+  intro.classList.add("is-curtain-active");
+
+  // カーテン無し/GSAP無し/軽減設定なら即home
+  if (!hasCurtain || prefersReduce) {
+    startToHome();
+    return;
+  }
+
+  const tl = gsap.timeline();
+  gsap.set([curtainL, curtainR], { opacity: 0, xPercent: 0, rotation: 0, scaleX: 1, scaleY: 1 });
+  gsap.set(curtainL, { transformOrigin: "top right" });
+  gsap.set(curtainR, { transformOrigin: "top left" });
+
+  tl.to([curtainL, curtainR], { opacity: 1, duration: 0.2, ease: "power1.out" }, 0);
+  tl.to(curtainL, { xPercent: -110, rotation: 12, scaleX: 0.2, duration: 2.8, ease: "power2.inOut" }, 0.2);
+  tl.to(curtainR, { xPercent: 110, rotation: -12, scaleX: 0.2, duration: 2.8, ease: "power2.inOut" }, 0.2);
+
+  tl.eventCallback("onComplete", () => {
+    intro.classList.add("is-curtain-open");
+    startToHome();
+  });
 }
 
-function switchToHome(){
-  // Introを隠してHome表示
-  if (intro) intro.hidden = true;
-  if (home) home.hidden = false;
-}
 
-function startCarouselLoop(){
-  if (!track || !window.gsap) return;
+  // ★クリックはロック解除後だけ（aria-disabledも見る）
+  enterBtn.addEventListener("click", (e) => {
+    if (enterBtn.getAttribute("aria-disabled") === "true") {
+      e.preventDefault();
+      return;
+    }
+    openCurtain();
+  });
 
-  // 1枚分の移動距離 = カード幅 + gap
-  // CSS: 260px + 46px
-  const STEP = 306;
-
-  // ループ：3〜4秒ごとに1枚分スライド
-  if (carouselTimer) clearInterval(carouselTimer);
-
-  carouselTimer = setInterval(() => {
-    gsap.to(track, {
-      duration: 0.9,
-      x: `-=${STEP}`,
-      ease: "power2.inOut",
-      onComplete: () => {
-        // 先頭要素を末尾へ回して位置を戻す（無限）
-        track.appendChild(track.children[0]);
-        gsap.set(track, { x: 0 });
-      }
-    });
-  }, 3400); // 3.4秒（好みで 3000〜4000）
-}
-
-function startCarouselLoop(){
-  if (!track || !window.gsap) return;
-
-  const STEP = 306; // 260 + 46
-
-  if (carouselTimer) clearInterval(carouselTimer);
-
-  carouselTimer = setInterval(() => {
-    gsap.to(track, {
-      duration: 0.9,
-      x: `-=${STEP}`,
-      ease: "power2.inOut",
-      onComplete: () => {
-        track.appendChild(track.children[0]);
-        gsap.set(track, { x: 0 });
-      }
-    });
-  }, 3400);
-}
-
+  // ★Enterキーも同様
+  window.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter") return;
+    if (enterBtn.getAttribute("aria-disabled") === "true") return;
+    openCurtain();
+  });
 });
+
+
+
+
+/* ===== 共通：ページ遷移（同一オリジンのみ） ===== */
+(() => {
+  const wipe = document.getElementById("pageWipe");
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function leaveTo(url) {
+    if (!wipe || !window.gsap || prefersReduced) {
+      window.location.href = url;
+      return;
+    }
+    gsap.killTweensOf(wipe);
+    gsap.set(wipe, { opacity: 0, transform: "scale(.2)" });
+    gsap.to(wipe, {
+      duration: 0.5,
+      opacity: 1,
+      scale: 1.6,
+      ease: "power2.inOut",
+      onComplete: () => (window.location.href = url),
+    });
+  }
+
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest("a");
+    if (!a) return;
+
+    // 新規タブや外部は通常動作
+    if (a.target === "_blank") return;
+
+    const url = new URL(a.href, window.location.href);
+    if (url.origin !== window.location.origin) return;
+
+    // 同一ページ内アンカーは通常（top.html内で使う）
+    if (url.pathname === window.location.pathname && url.hash) return;
+
+    // 修飾キー押下は通常
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+    e.preventDefault();
+    leaveTo(url.href);
+  });
+})();
