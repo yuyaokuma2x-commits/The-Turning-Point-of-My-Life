@@ -3,85 +3,45 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Theater</title>
+  <title>The Turning Point of My Life</title>
+
 
   <link rel="stylesheet" href="./style.css" />
-
-  <!-- GSAP -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 </head>
 
-<body class="theaterPage">
-  <!-- ページ遷移用（共通） -->
-  <div id="pageWipe" aria-hidden="true"></div>
+<body class="homeIntro">
+  <!-- 光（円形ワイプ） -->
+  <div id="flash" class="flash" aria-hidden="true"></div>
 
-  <!-- ===== Intro (Desktop-1/2の灰色画面) ===== -->
-  <section id="intro" class="intro" aria-label="Intro">
-    <!-- 画面の縦ライン（左右） -->
+  <!-- Scene0：1枚目（頭イラスト） -->
+  <section id="scene0" class="splash is-active" aria-label="Splash">
+    <!-- ファイル名はなるべく英数字推奨（例：top-head.png） -->
+    <img src="./assets/top-head.png" alt="メディアデザイン演習" />
+
+  </section>
+
+  <!-- Scene1/2：テキスト画面（3秒→文字だけ切替→3秒） -->
+  <section id="intro" class="intro" aria-label="Intro" hidden>
+    <!-- 縦ライン -->
     <span class="intro__vline intro__vline--left" aria-hidden="true"></span>
     <span class="intro__vline intro__vline--right" aria-hidden="true"></span>
 
-   <!-- 左下の Loading（縦向き） -->
-<div class="intro__loading" aria-hidden="true">
-  <span class="intro__loadingTrack" aria-hidden="true"></span>
-  <span class="intro__loadingFill" id="loadingFill" aria-hidden="true"></span>
-</div>
-
-    <!-- Enter（Scene2になったら表示） -->
-    <button id="enterBtn" class="enterBtn" type="button" aria-label="Enter">
-      ENTER
-    </button>
-
-    <!-- 中央テキスト（Scene1→Scene2で切替） -->
+    <!-- 中央テキスト -->
     <div class="centerText" role="presentation">
+      <!-- Scene1 -->
       <div class="centerText__s1 centerText__line centerText__line--big" aria-hidden="false">
         The answer is already inside me
       </div>
 
+      <!-- Scene2（文字だけ切替・光なし） -->
       <div class="centerText__s2" aria-hidden="true">
         <div class="centerText__line centerText__line--mid">Media Design Workshop</div>
         <div class="centerText__line centerText__line--mid">The Turning Point of My Life</div>
       </div>
     </div>
-
-    <!-- カーテン（Enter押した瞬間に出てきて開く） -->
-    <div class="curtain curtain--left" aria-hidden="true"></div>
-    <div class="curtain curtain--right" aria-hidden="true"></div>
   </section>
 
-  <!-- フラッシュ（円形ワイプ） -->
-  <div id="flash" class="flash" aria-hidden="true"></div>
-
-  <!-- ===== Home ===== -->
-  <main id="home" class="home" hidden>
-    <header class="homeTopbar">
-      <div class="homeTopbar__left">Theater / Home</div>
-      <nav class="homeTopbar__right">
-        <a class="homeTopbar__link" href="./top.html">Topへ</a>
-      </nav>
-    </header>
-
-    <section class="homeHero stageLayer__hero" aria-label="Hero">
-      <h1 class="homeHero__title">Home</h1>
-      <p class="homeHero__sub">ここが home です（Enter → カーテン → フラッシュ後に表示）</p>
-    </section>
-
-    <section class="carousel" aria-label="Carousel">
-      <div class="carousel__viewport">
-        <div id="carouselTrack" class="carousel__track">
-          <a class="card" href="./top.html"><div class="card__title">Top</div><div class="card__desc">展示ページへ</div></a>
-          <a class="card" href="./ep1.html"><div class="card__title">EP1</div><div class="card__desc">あとで作る</div></a>
-          <a class="card" href="./ep2.html"><div class="card__title">EP2</div><div class="card__desc">あとで作る</div></a>
-          <a class="card" href="./ep3.html"><div class="card__title">EP3</div><div class="card__desc">あとで作る</div></a>
-          <a class="card" href="./ep4.html"><div class="card__title">EP4</div><div class="card__desc">あとで作る</div></a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <script src="./functions.js"></script>
+  <script src="./home.js"></script>
 </body>
 </html>
-
-
-

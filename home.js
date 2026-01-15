@@ -1,17 +1,9 @@
 /**
  * index.html 導入（ENTERなし／自動進行）
- * 0) 頭イラスト（画像） 3秒
- * 1) 光（円形ワイプ）で intro表示（Scene1：The answer...）＋Loading 3秒
- * 2) 光なしで文字だけ切替（Scene2：Media Design...） 3秒
- * 3) 光（円形ワイプ）で home.html へ
- *
- * 必要DOM:
- * - #scene0（splash）
- * - #intro（テキスト画面）
- * - #flash（光演出）
- * CSS:
- * - html.is-scene2 で Scene2文字表示
- * - #intro の --load を loading表示に使用
+ * 0) 頭イラスト 3秒
+ * 1) 光で intro表示（Scene1）＋Loading 3秒
+ * 2) 光なしで文字だけ切替（Scene2） 3秒
+ * 3) 光で home.html へ
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -21,32 +13,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const intro = document.getElementById("intro");
   const flash = document.getElementById("flash");
 
-  const MS = 3000; // 3秒
+  const MS = 3000;
 
-  // 安全ガード（要素が無いときは何もしない）
-  if (!splash || !intro) return;
+  function setLoad(t) {
+    if (!intro) return;
+    intro.style.setProperty("--load", String(t));
+  }
+
 
   function wait(ms) {
     return new Promise((r) => setTimeout(r, ms));
   }
 
-  // loading用CSS変数 --load を 0→1 で更新
-  function setLoad(t) {
-    intro.style.setProperty("--load", String(t));
-  }
-
-  function animateLoading(ms) {
-    const start = performance.now();
-    function tick(now) {
-      const t = Math.min(1, (now - start) / ms);
-      setLoad(t);
-      if (t < 1) requestAnimationFrame(tick);
-    }
-    setLoad(0);
-    requestAnimationFrame(tick);
-  }
-
-  // 光（flash）演出：GSAPが無い場合は即切替
   function flashTransition(onMid) {
     if (!window.gsap || !flash) {
       onMid?.();
@@ -80,30 +58,27 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function run() {
-    // 初期：Scene0（頭イラスト）
-    splash.hidden = false;
-    intro.hidden = true;
+    // 初期：1枚目
+    if (splash) splash.hidden = false;
+    if (intro) intro.hidden = true;
     root.classList.remove("is-scene2");
-    setLoad(0);
 
     await wait(MS);
 
-    // 光でScene1へ（テキスト画面表示＋Loading開始）
-    await flashTransition(() => {
-      splash.hidden = true;
-      intro.hidden = false;
+await flashTransition(() => {
+  if (splash) splash.hidden = true;
+  if (intro) intro.hidden = false;
+  root.classList.remove("is-scene2");
+});
 
-      root.classList.remove("is-scene2"); // Scene1文字
-      animateLoading(MS);
-    });
 
-    // Scene1を3秒
+    // 2枚目を3秒
     await wait(MS);
 
-    // 光なしでScene2へ（文字だけ切替）
+    // 光なしで3枚目（文字だけ切替）
     root.classList.add("is-scene2");
 
-    // Scene2を3秒
+    // 3枚目を3秒
     await wait(MS);
 
     // 光で home.html へ
