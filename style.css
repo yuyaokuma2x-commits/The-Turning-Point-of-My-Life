@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap");
 
+
+html, body{
+  overflow-x: hidden;
+}
+
 :root{
   --intro-bg: #3e3e3e;
   --intro-text: rgba(255,255,255,.55);
@@ -176,7 +181,7 @@ html.is-scene2 .centerText__s1{
 }
 .topNav__left, .topNav__right{
   display:flex;
-  gap:26px;
+  gap:120px;
   align-items:center;
 }
 .topNav__link{
@@ -318,5 +323,104 @@ html.is-scene2 .centerText__s1{
   height: 100%;
   object-fit: contain;    /* ← cover → contain にする */
   display: block;
+}
+
+/* === Episodes rail: right -> left endless === */
+.epRail__mask{
+  overflow: hidden;
+  width: 100%;
+}
+
+/* trackを横並び＋無限に流す */
+.epRail__track{
+  display: flex;
+  gap: 28px;                 /* カード間隔（好みで） */
+  width: max-content;        /* 中身の幅に合わせる */
+  will-change: transform;
+  animation: ep-marquee 20s linear infinite; /* ← 速度：普通 */
+}
+
+/* 8枚(=2周)ある前提で、半分(=1周分)だけ移動してループ */
+@keyframes ep-marquee{
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* カード見た目が崩れてたら最低限これで安定 */
+.epCard{
+  flex: 0 0 auto;
+  display: block;
+  border-radius: 22px;
+  overflow: hidden;
+  text-decoration: none;
+  position: relative;
+}
+
+/* 画像が枠に収まるように */
+.epCard img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ラベル（必要なら） */
+.epCard__label{
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  font-size: 14px;
+  letter-spacing: .08em;
+  opacity: .9;
+}
+
+.epCard{
+  flex: 0 0 auto;
+
+  /* 3枚くらい見せたい → 幅を大きめに固定 */
+  width: min(30vw, 360px);
+
+  /* 下1/3くらい → 高さを画面基準で固定 */
+  height: 32vh;
+
+  border-radius: 22px;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+}
+
+/* 下と距離とる */
+.epRail{ margin-top: 32px; }
+
+
+/* ===== stageHero 背景レイヤー（画像は後で差し替え） ===== */
+.stageHero__inner{
+  position: relative;   /* ★必須 */
+  overflow: hidden;     /* 枠からはみ出さない */
+}
+
+.stageHero__bg{
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  /* 画像がない間の仮背景（あとで差し替え） */
+  background: rgba(255,255,255,0.06);
+
+  /* ほんのり暗くしたいなら */
+  /* opacity: 0.9; */
+}
+
+/* 既存のテキスト等を前面へ */
+.stageHero__copy{
+  position: relative;
+  z-index: 1;
+}
+
+/*画像ができたら*/
+.stageHero__bg{
+  background-image: url("./assets/hero.jpg");
+  background-size: cover;
+  background-position: center;
 }
 

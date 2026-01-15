@@ -13,6 +13,7 @@
   <header class="topNav" aria-label="Navigation">
     <nav class="topNav__left">
       <a class="topNav__link is-current" href="./home.html">Home</a>
+      <a class="topNav__link" href="./top.html">Top</a>
       <a class="topNav__link" href="./ep1.html">EP1</a>
       <a class="topNav__link" href="./ep2.html">EP2</a>
       <a class="topNav__link" href="./ep3.html">EP3</a>
@@ -27,11 +28,12 @@
 
   <section class="stageHero" aria-label="Stage">
     <div class="stageHero__inner">
+        <div class="heroBg" aria-hidden="true"></div>
       <div class="stageHero__copy">
         <h1 class="stageHero__title">ほんとうの幸せに気づくまで</h1>
         <p class="stageHero__text">
           借り物の正解では幸せになれない。<br>
-          「何者か」になりたくて、他人の地図を歩き続けた。<br>
+        「何者か」になりたくて、他人の地図を歩き続けた。<br>
           虚飾の成功と友人の死が教えてくれたものとは。
         </p>
       </div>
@@ -40,29 +42,49 @@
     </div>
   </section>
 
-  <!-- 下の3枠：右→左自動、4章分ループ -->
-  <section class="epRail" aria-label="Episodes">
-    <div class="epRail__mask">
-      <div id="epTrack" class="epRail__track">
-        <a class="epCard" href="./ep1.html" aria-label="EP1へ">
-          <img src="./assets/ep1.png" alt="EP1 メインイラスト" />
-          <div class="epCard__label">EP1</div>
-        </a>
-        <a class="epCard" href="./ep2.html" aria-label="EP2へ">
-          <img src="./assets/ep2.png" alt="EP2 メインイラスト" />
-          <div class="epCard__label">EP2</div>
-        </a>
-        <a class="epCard" href="./ep3.html" aria-label="EP3へ">
-          <img src="./assets/ep3.png" alt="EP3 メインイラスト" />
-          <div class="epCard__label">EP3</div>
-        </a>
-        <a class="epCard" href="./ep4.html" aria-label="EP4へ">
-          <img src="./assets/ep4.png" alt="EP4 メインイラスト" />
-          <div class="epCard__label">EP4</div>
-        </a>
-      </div>
-    </div>
-  </section>
+  <div id="epTrack" class="epRail__track">
+  <a class="epCard" href="./ep1.html" aria-label="EP1へ">
+    <img src="./assets/ep1.png" alt="EP1 メインイラスト" />
+    <div class="epCard__label">EP1</div>
+  </a>
+
+  <a class="epCard" href="./ep2.html" aria-label="EP2へ">
+    <img src="./assets/ep2.png" alt="EP2 メインイラスト" />
+    <div class="epCard__label">EP2</div>
+  </a>
+
+  <a class="epCard" href="./ep3.html" aria-label="EP3へ">
+    <img src="./assets/ep3.png" alt="EP3 メインイラスト" />
+    <div class="epCard__label">EP3</div>
+  </a>
+
+  <a class="epCard" href="./ep4.html" aria-label="EP4へ">
+    <img src="./assets/ep4.png" alt="EP4 メインイラスト" />
+    <div class="epCard__label">EP4</div>
+  </a>
+
+  <!-- ▼ここから2周目（同じものを複製） -->
+  <a class="epCard" href="./ep1.html" aria-label="EP1へ">
+    <img src="./assets/ep1.png" alt="EP1 メインイラスト" />
+    <div class="epCard__label">EP1</div>
+  </a>
+
+  <a class="epCard" href="./ep2.html" aria-label="EP2へ">
+    <img src="./assets/ep2.png" alt="EP2 メインイラスト" />
+    <div class="epCard__label">EP2</div>
+  </a>
+
+  <a class="epCard" href="./ep3.html" aria-label="EP3へ">
+    <img src="./assets/ep3.png" alt="EP3 メインイラスト" />
+    <div class="epCard__label">EP3</div>
+  </a>
+
+  <a class="epCard" href="./ep4.html" aria-label="EP4へ">
+    <img src="./assets/ep4.png" alt="EP4 メインイラスト" />
+    <div class="epCard__label">EP4</div>
+  </a>
+</div>
+
 
   <script src="./top.js"></script>
 </body>
