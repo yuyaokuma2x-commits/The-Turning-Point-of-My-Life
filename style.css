@@ -167,35 +167,64 @@ html.is-scene2 .centerText__s1{
   color: var(--home-text);
 }
 
+/* ====== Top Nav（色・間隔調整版）====== */
+
 .topNav{
-  position:sticky;
-  top:0;
-  z-index:50;
-  height:64px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0 22px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 22px;
   background: linear-gradient(to bottom, rgba(255,255,255,.10), rgba(0,0,0,.55));
   backdrop-filter: blur(10px);
 }
-.topNav__left, .topNav__right{
-  display:flex;
-  gap:120px;
-  align-items:center;
+
+/* 左側に“見えない箱”を置いて、右(Intro)の幅と釣り合わせて中央を作る */
+.topNav::before{
+  content: "";
+  flex: 0 0 200px; /* ← .topNav__right と同じ値にする */
 }
+
+.topNav__left{
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: center;
+  align-items: center;
+  gap: 24px; /* ← ここで間隔調整（20〜32pxくらいで好み） */
+}
+
+.topNav__right{
+  display: flex;
+  flex: 0 0 200px; /* ← ::before と同じ値にする */
+  justify-content: flex-end;
+  align-items: center;
+  gap: 18px;
+}
+
 .topNav__link{
-  color: rgba(245,245,245,.92);
-  text-decoration:none;
-  letter-spacing:.06em;
-  opacity:.85;
+  color: rgba(245,245,245,.92);   /* 白寄り */
+  text-decoration: none;
+  letter-spacing: .06em;
+  opacity: .88;
+  padding: 8px 10px;             /* クリックしやすく＆見た目に余白 */
 }
-.topNav__link:hover{ opacity:1; }
+
+.topNav__link:visited{
+  color: rgba(245,245,245,.92);   /* 紫（visited）を潰す */
+}
+
+.topNav__link:hover{
+  opacity: 1;
+}
+
 .topNav__link.is-current{
-  opacity:1;
+  opacity: 1;
   text-decoration: underline;
   text-underline-offset: 6px;
 }
+
 
 /* 上の大枠 */
 .stageHero{ padding: 22px 22px 0; }

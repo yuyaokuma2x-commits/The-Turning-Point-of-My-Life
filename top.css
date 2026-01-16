@@ -18,13 +18,21 @@
 }
 
 .topbar__left{ display:flex; align-items:center; }
-.topbar__dot{
-  width: 22px;
-  height: 22px;
-  border-radius: 999px;
-  background: rgba(240,240,240,.75);
-  display: inline-block;
+/* top.css：白丸は不要なら消す（HTML差し替えするならこの行はなくてもOK） */
+.topbar__dot{ display: none; }
+
+/* 追加：左の「Intro」用 */
+.topbar__brand{
+  color: rgba(240,240,240,.85);
+  text-decoration: none;
+  letter-spacing: .08em;
+  font-size: 16px;
+  padding: 10px 6px;
+  opacity: .85;
 }
+
+.topbar__brand:hover{ opacity: 1; }
+
 
 .topbar__nav{
   display: flex;
