@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EP1 | インタビュー</title>
+  <link rel="stylesheet" href="EP1.css" />
+</head>
+
+<body>
+  <!-- Top/Homeに合わせる：上部ナビ（中央寄せ、アクティブ下線） -->
+  <header class="site-header">
+    <nav class="top-nav" aria-label="Global navigation">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="top.html">Top</a>
+      <a class="nav-link is-active" href="EP1.html" aria-current="page">EP1</a>
+      <a class="nav-link" href="EP2.html">EP2</a>
+      <a class="nav-link" href="EP3.html">EP3</a>
+      <a class="nav-link" href="EP4.html">EP4</a>
+      <span class="nav-spacer"></span>
+      <a class="nav-link" href="intro.html">Intro</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <!-- 背景演出：フィルム穴（前半だけ動かす予定） -->
+    <div class="film-perforation film-perforation--left" aria-hidden="true"></div>
+    <div class="film-perforation film-perforation--right" aria-hidden="true"></div>
+
+    <!-- 大ガラス板カード（Home/Topに合わせる） -->
+    <section class="glass-card">
+      <!-- スクリーン（章KV）：contain + ビネット -->
+      <div class="screen" aria-label="Episode key visual">
+        <!-- 推奨：mp4/webm（gifでもOK）。まずはvideoを置いて、なければimgへ切替でもOK -->
+        <video
+          class="screen-media"
+          id="kvMedia"
+          src="assets/ep1-kv.mp4"
+          muted
+          playsinline
+          preload="auto"
+        ></video>
+
+        <!-- videoが無い場合の保険（使うならvideoをコメントアウトしてこっちに）
+        <img class="screen-media" id="kvMedia" src="assets/ep1-kv.gif" alt="EP1 キービジュアル" />
+        -->
+
+        <!-- スクリーン上のビネット -->
+        <div class="vignette" aria-hidden="true"></div>
+
+        <!-- ランダムノイズ（常時ではなく“時々”だけ出る） -->
+        <div class="noise" aria-hidden="true"></div>
+      </div>
+
+      <!-- 映像→台本の切り替え境界（薄い線） -->
+      <div class="screen-divider" aria-hidden="true"></div>
+
+      <!-- 本文（台本） -->
+      <article class="script">
+        <header class="script-head">
+          <h1 class="script-title">エピソード1</h1>
+          <p class="script-meta">2025年 / インタビュー</p>
+        </header>
+
+        <!-- ここから本文：質問/回答をクラスで分ける（タイポ＝文字設計） -->
+        <p class="q">—— まず自己紹介、お名前からいいですか？ ——</p>
+        <p class="a">涼太：涼太といいます。出身は岡山県倉敷市です。</p>
+
+        <p class="q">—— 現在のご職業は？ ——</p>
+        <p class="a">デザインとマーケティングを軸に、企業の事業成長を支援するコンサルティング会社で働いています。</p>
+
+        <p class="q">—— 生い立ちや家族のことも、簡単に教えてもらえますか？ ——</p>
+        <p class="a">
+          家族は7人家族で、父は銀行員、兄は国家公務員。ガッチガチに堅い家系なんですよ。
+          僕は末っ子で自由に育ててもらったから、サラリーマン的なルールに縛られるのが嫌で、
+          「ああはなりたくないな」ってある程度反面教師にしてました。
+        </p>
+
+        <!-- 穴の動き（前半）の境界を後から調整するためのマーカー -->
+        <div id="perforation-end-marker" aria-hidden="true"></div>
+
+        <!-- ここはEP1用の“上映トリガー”の置き場所（後で文章が決まったら入れ替える） -->
+        <div class="trigger-block">
+          <p class="q">—— （ここにEP1のキー場面が来たら上映） ——</p>
+
+          <!-- 重要：この p に data-screen-trigger を付けると自動上映が走る -->
+          <p class="a keyline" data-screen-trigger>
+            ※ここをEP1の決め台詞に置き換えてください（到達で1〜2秒のフルスクリーン上映が入ります）
+          </p>
+        </div>
+
+        <p class="q">—— 続きをここに入れる ——</p>
+        <p class="a">（本文続き…）</p>
+
+      </article>
+
+      <!-- 下部ナビ（Back/Next） -->
+      <footer class="ep-footer">
+        <a class="ep-nav" href="top.html">Back</a>
+        <a class="ep-nav" href="EP2.html">Next</a>
+      </footer>
+    </section>
+  </main>
+
+  <!-- フルスクリーン上映オーバーレイ -->
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="overlay-stage" role="dialog" aria-label="Screen moment">
+      <div class="overlay-vignette" aria-hidden="true"></div>
+      <div class="overlay-noise" aria-hidden="true"></div>
+
+      <!-- 同じ素材を “contain” で見せる -->
+      <video
+        class="overlay-media"
+        id="overlayMedia"
+        src="assets/ep1-kv.mp4"
+        muted
+        playsinline
+        preload="auto"
+      ></video>
+
+      <!-- videoが無い場合
+      <img class="overlay-media" id="overlayMedia" src="assets/ep1-kv.gif" alt="" />
+      -->
+    </div>
+  </div>
+
+  <script src="EP1.js"></script>
+</body>
+</html>

@@ -1,0 +1,290 @@
+:root{
+  --bg:#070707;
+  --ink: rgba(255,255,255,.88);
+  --muted: rgba(255,255,255,.55);
+  --line: rgba(255,255,255,.14);
+  --glass: rgba(255,255,255,.06);
+  --glass2: rgba(255,255,255,.04);
+  --shadow: rgba(0,0,0,.65);
+  --radius: 28px;
+  --max: 1180px;
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  background: radial-gradient(1200px 700px at 50% 0%, rgba(255,255,255,.06), transparent 60%),
+              linear-gradient(#040404, #0a0a0a);
+  color: var(--ink);
+  font-family: "Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;
+}
+
+/* ===== Header / Nav ===== */
+.site-header{
+  position: sticky;
+  top:0;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  background: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.15));
+}
+
+.top-nav{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.nav-link{
+  text-decoration: none;
+  color: rgba(255,255,255,.72);
+  font-size: 14px;
+  letter-spacing: .08em;
+  padding: 6px 2px;
+}
+
+.nav-link:hover{ color: rgba(255,255,255,.92); }
+
+.nav-link.is-active{
+  color: rgba(255,255,255,.92);
+  border-bottom: 1px solid rgba(255,255,255,.65);
+}
+
+.nav-spacer{ flex: 1; }
+
+/* ===== Layout ===== */
+.page{
+  position: relative;
+  max-width: var(--max);
+  margin: 22px auto 70px;
+  padding: 0 20px;
+}
+
+/* フィルム穴（左右） */
+.film-perforation{
+  position: fixed;
+  top: 120px;
+  bottom: 40px;
+  width: 72px;
+  opacity: .75;
+  pointer-events: none;
+  filter: blur(.2px);
+  background:
+    radial-gradient(circle at 50% 20px, rgba(255,255,255,.86) 0 15px, transparent 16px) 0 0/72px 76px;
+  mix-blend-mode: screen;
+}
+.film-perforation--left{ left: 10px; }
+.film-perforation--right{ right: 10px; }
+
+/* ===== Glass Card ===== */
+.glass-card{
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,.10);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  box-shadow: 0 30px 90px var(--shadow);
+  overflow: hidden;
+}
+
+/* ===== Screen ===== */
+.screen{
+  position: relative;
+  height: min(52vh, 420px);
+  background: radial-gradient(900px 420px at 50% 0%, rgba(255,255,255,.07), rgba(0,0,0,.35) 65%),
+              linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.62));
+}
+
+.screen-media{
+  position:absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* ← 確定：全体が見える */
+  object-position: center;
+  filter: contrast(1.05) brightness(.95);
+}
+
+.vignette{
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at 50% 45%, transparent 0 52%, rgba(0,0,0,.55) 78%, rgba(0,0,0,.92) 100%);
+  pointer-events: none;
+}
+
+/* ランダム表示するノイズ（普段は透明） */
+.noise{
+  position:absolute;
+  inset:-20%;
+  opacity: 0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.08) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 4px);
+  mix-blend-mode: overlay;
+  pointer-events:none;
+  transform: rotate(-3deg);
+}
+
+.screen-divider{
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+}
+
+/* ===== Script typography ===== */
+.script{
+  padding: 34px 34px 28px;
+  background: linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.42));
+}
+
+.script-head{
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+}
+
+.script-title{
+  margin: 0 0 10px;
+  font-size: 34px;
+  letter-spacing: .06em;
+  color: rgba(255,255,255,.90);
+}
+
+.script-meta{
+  margin:0;
+  font-size: 13px;
+  color: rgba(255,255,255,.55);
+  letter-spacing: .08em;
+}
+
+/* Q/Aの差（タイポ設計） */
+.q{
+  margin: 18px 0 8px;
+  font-size: 14px;
+  color: rgba(255,255,255,.62);
+  letter-spacing: .08em;
+}
+
+.a{
+  margin: 0 0 18px;
+  font-size: 16px;
+  line-height: 1.95;
+  color: rgba(255,255,255,.86);
+}
+
+/* 決め台詞（上映トリガー） */
+.keyline{
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  font-size: 18px;
+  line-height: 2.05;
+  letter-spacing: .04em;
+}
+
+/* トリガーの前後に「間」 */
+.trigger-block{
+  margin: 34px 0 34px;
+  padding: 6px 0;
+}
+
+/* ===== Footer nav ===== */
+.ep-footer{
+  display:flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 26px 22px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  background: linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.35));
+}
+
+.ep-nav{
+  text-decoration:none;
+  color: rgba(255,255,255,.74);
+  font-size: 14px;
+  letter-spacing: .08em;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+}
+.ep-nav:hover{ color: rgba(255,255,255,.92); }
+
+/* ===== Overlay (full-screen screening) ===== */
+.overlay{
+  position: fixed;
+  inset: 0;
+  display:none;
+  z-index: 999;
+  background: rgba(0,0,0,.35);
+}
+
+.overlay.is-on{ display:block; }
+
+.overlay-stage{
+  position:absolute;
+  inset: 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.overlay-media{
+  width: min(1100px, 92vw);
+  height: min(620px, 70vh);
+  object-fit: contain;
+  object-position: center;
+  filter: contrast(1.05);
+  z-index: 2;
+}
+
+.overlay-vignette{
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at 50% 45%, transparent 0 40%, rgba(0,0,0,.62) 72%, rgba(0,0,0,.92) 100%);
+  z-index: 3;
+  pointer-events:none;
+}
+
+/* overlayノイズ（普段は薄め、フリッカー時に強く） */
+.overlay-noise{
+  position:absolute;
+  inset:-20%;
+  opacity: 0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.10) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.06) 0 1px, transparent 1px 4px);
+  mix-blend-mode: overlay;
+  transform: rotate(2deg);
+  z-index: 4;
+  pointer-events:none;
+}
+
+/* 入りC：映写機チラつき（短い） */
+@keyframes projectorIn {
+  0%   { opacity: 0; filter: brightness(.7) contrast(1.2); transform: translateY(2px); }
+  35%  { opacity: 1; filter: brightness(1.2) contrast(1.25); }
+  55%  { opacity: .85; filter: brightness(.9) contrast(1.2); }
+  100% { opacity: 1; filter: brightness(1.0) contrast(1.05); transform: translateY(0); }
+}
+
+/* 戻りB：消える直前に一瞬フリッカー */
+@keyframes projectorOut {
+  0%   { opacity: 1; }
+  60%  { opacity: 1; }
+  72%  { opacity: .6; }
+  82%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.overlay.is-in .overlay-media{ animation: projectorIn 180ms linear both; }
+.overlay.is-out .overlay-media{ animation: projectorOut 220ms linear both; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .overlay.is-in .overlay-media,
+  .overlay.is-out .overlay-media{ animation: none; }
+}
