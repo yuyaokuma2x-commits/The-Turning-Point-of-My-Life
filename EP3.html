@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EP3 | インタビュー</title>
+  <link rel="stylesheet" href="EP1.css" />
+  <link rel="stylesheet" href="EP3.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <nav class="top-nav" aria-label="Global navigation">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="top.html">Top</a>
+      <a class="nav-link" href="EP1.html">EP1</a>
+      <a class="nav-link" href="EP2.html">EP2</a>
+      <a class="nav-link is-active" href="EP3.html" aria-current="page">EP3</a>
+      <a class="nav-link" href="EP4.html">EP4</a>
+      <span class="nav-spacer"></span>
+      <a class="nav-link" href="intro.html">Intro</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <div class="film-perforation film-perforation--left" aria-hidden="true"></div>
+    <div class="film-perforation film-perforation--right" aria-hidden="true"></div>
+
+    <section class="glass-card">
+      <div class="screen" aria-label="Episode key visual">
+        <video class="screen-media" id="kvMedia" src="assets/ep3-kv.mp4" muted playsinline preload="auto"></video>
+        <div class="vignette" aria-hidden="true"></div>
+        <div class="noise" aria-hidden="true"></div>
+      </div>
+
+      <div class="screen-divider" aria-hidden="true"></div>
+
+      <article class="script">
+        <header class="script-head">
+          <h1 class="script-title">エピソード3（鎌倉）</h1>
+          <p class="script-meta">2025年 / インタビュー</p>
+        </header>
+
+        <p class="q">—— （前段） ——</p>
+        <p class="a">（本文…）</p>
+
+        <!-- ✅ 本文GIF部品（任意で移動） -->
+        <figure class="inline-media">
+          <div class="inline-media__frame">
+            <img src="assets/ep3-insert-01.gif" alt="EP3 本文挿絵" />
+          </div>
+          <figcaption class="inline-media__cap">（任意）</figcaption>
+        </figure>
+
+        <div id="perforation-end-marker" aria-hidden="true"></div>
+
+        <!-- ✅ トリガー：B（言い切り）に合わせて確定文 -->
+        <div class="trigger-block js-trigger-block">
+          <p class="a">
+            これはマジ辛かった。辛すぎて、家から5分のところに海があるんですけど。砂浜があるわけじゃなくて、堤防があって海がある。
+            夜になると海側って何も光がないから真っ暗になるんですね。視界には本当に一色の黒色しかなくて、立体ではなく二次元な壁にも見えるような...
+          </p>
+
+          <p class="a keyline js-screen-trigger" data-screen-trigger>
+            目の前の世界に吸い込まれた方が楽なんじゃないか。
+          </p>
+
+          <p class="a">
+            って思うくらいまでに病んでましたね。
+          </p>
+        </div>
+
+        <p class="q">—— （続き） ——</p>
+        <p class="a">（本文続き…）</p>
+      </article>
+
+      <footer class="ep-footer">
+        <a class="ep-nav" href="EP2.html">Back</a>
+        <a class="ep-nav" href="EP4.html">Next</a>
+      </footer>
+    </section>
+  </main>
+
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="overlay-stage" role="dialog" aria-label="Screen moment">
+      <div class="overlay-vignette" aria-hidden="true"></div>
+      <div class="overlay-noise" aria-hidden="true"></div>
+      <video class="overlay-media" id="overlayMedia" src="assets/ep3-kv.mp4" muted playsinline preload="auto"></video>
+    </div>
+  </div>
+
+  <script src="EP3.js"></script>
+</body>
+</html>

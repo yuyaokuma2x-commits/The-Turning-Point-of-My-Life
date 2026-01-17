@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EP2 | インタビュー</title>
+
+  <!-- EP1の土台を流用 -->
+  <link rel="stylesheet" href="EP1.css" />
+  <!-- EP2の差分だけ -->
+  <link rel="stylesheet" href="EP2.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <nav class="top-nav" aria-label="Global navigation">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="top.html">Top</a>
+      <a class="nav-link" href="EP1.html">EP1</a>
+      <a class="nav-link is-active" href="EP2.html" aria-current="page">EP2</a>
+      <a class="nav-link" href="EP3.html">EP3</a>
+      <a class="nav-link" href="EP4.html">EP4</a>
+      <span class="nav-spacer"></span>
+      <a class="nav-link" href="intro.html">Intro</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <div class="film-perforation film-perforation--left" aria-hidden="true"></div>
+    <div class="film-perforation film-perforation--right" aria-hidden="true"></div>
+
+    <section class="glass-card">
+      <div class="screen" aria-label="Episode key visual">
+        <video
+          class="screen-media"
+          id="kvMedia"
+          src="assets/ep2-kv.mp4"
+          muted
+          playsinline
+          preload="auto"
+        ></video>
+
+        <div class="vignette" aria-hidden="true"></div>
+        <div class="noise" aria-hidden="true"></div>
+      </div>
+
+      <div class="screen-divider" aria-hidden="true"></div>
+
+      <article class="script">
+        <header class="script-head">
+          <h1 class="script-title">エピソード2</h1>
+          <p class="script-meta">2025年 / インタビュー</p>
+        </header>
+
+        <!-- 本文（仮） -->
+        <p class="q">—— EP2の質問 ——</p>
+        <p class="a">EP2の回答（仮）。</p>
+
+        <!-- ✅ 本文GIF部品（どこへでも移動OK） -->
+        <figure class="inline-media">
+          <div class="inline-media__frame">
+            <!-- 画像でも動画でもOK（containで収める） -->
+            <img src="assets/ep2-insert-01.gif" alt="EP2 本文挿絵" />
+          </div>
+          <figcaption class="inline-media__cap">（本文中の挿絵キャプション：任意）</figcaption>
+        </figure>
+
+        <!-- フィルム穴の「前半」終点マーカー（後で場所を動かして調整） -->
+        <div id="perforation-end-marker" aria-hidden="true"></div>
+
+        <!-- ✅ トリガー用目印：この要素を移動するだけで上映位置が変わる -->
+        <div class="trigger-block js-trigger-block">
+          <p class="q">—— （ここにEP2のキー場面が来たら上映） ——</p>
+
+          <!-- トリガーの目印：属性 + クラス -->
+          <p class="a keyline js-screen-trigger" data-screen-trigger>
+            ※ここをEP2の決め台詞に置き換えてください（到達で1〜2秒の上映）
+          </p>
+        </div>
+
+        <p class="q">—— 続き ——</p>
+        <p class="a">（本文続き…）</p>
+      </article>
+
+      <footer class="ep-footer">
+        <a class="ep-nav" href="EP1.html">Back</a>
+        <a class="ep-nav" href="EP3.html">Next</a>
+      </footer>
+    </section>
+  </main>
+
+  <!-- フルスクリーン上映オーバーレイ -->
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="overlay-stage" role="dialog" aria-label="Screen moment">
+      <div class="overlay-vignette" aria-hidden="true"></div>
+      <div class="overlay-noise" aria-hidden="true"></div>
+
+      <video
+        class="overlay-media"
+        id="overlayMedia"
+        src="assets/ep2-kv.mp4"
+        muted
+        playsinline
+        preload="auto"
+      ></video>
+    </div>
+  </div>
+
+  <script src="EP2.js"></script>
+</body>
+</html>
