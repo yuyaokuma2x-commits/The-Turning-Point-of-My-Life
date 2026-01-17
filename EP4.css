@@ -168,9 +168,9 @@ body{
 }
 
 .a{
-  margin: 0 0 18px;
+  margin: 0 0 100px;
   font-size: 16px;
-  line-height: 1.95;
+  line-height: 2.15;
   color: rgba(255,255,255,.86);
 }
 
@@ -282,6 +282,44 @@ body{
 
 .overlay.is-in .overlay-media{ animation: projectorIn 180ms linear both; }
 .overlay.is-out .overlay-media{ animation: projectorOut 220ms linear both; }
+
+/* 本文挿絵（共通部品） */
+.inline-media{
+  margin: 24px 0 28px;
+}
+.inline-media__frame{
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+  overflow: hidden;
+  box-shadow: 0 18px 60px rgba(0,0,0,.55);
+}
+.inline-media__frame img,
+.inline-media__frame video{
+  display:block;
+  width:100%;
+  height: auto;
+  object-fit: contain;
+}
+.inline-media__cap{
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: rgba(255,255,255,.55);
+  letter-spacing: .06em;
+}
+
+
+/* 本文の読み幅を制限して中央寄せ */
+.script{
+  padding: 34px 34px 28px; /* ここは既存のまま */
+}
+
+.script > *{
+  max-width: 740px;   /* 目安：680〜780で調整 */
+  margin-left: auto;
+  margin-right: auto;
+}
+
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce){

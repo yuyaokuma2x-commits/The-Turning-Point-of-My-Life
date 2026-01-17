@@ -28,45 +28,81 @@
 
     <section class="glass-card">
       <div class="screen" aria-label="Episode key visual">
-        <video class="screen-media" id="kvMedia" src="assets/ep4-kv.mp4" muted playsinline preload="auto"></video>
+       <img class="screen-media" id="kvMedia" src="./assets/メディア最終の海.gif" alt="EP2 キービジュアル" />
+
         <div class="vignette" aria-hidden="true"></div>
         <div class="noise" aria-hidden="true"></div>
       </div>
 
       <div class="screen-divider" aria-hidden="true"></div>
 
+
+      <!-- 本文（台本） -->
       <article class="script">
         <header class="script-head">
-          <h1 class="script-title">エピソード4（渋谷）</h1>
+          <h1 class="script-title">エピソード2 反骨心の塊</h1>
           <p class="script-meta">2025年 / インタビュー</p>
         </header>
 
-        <p class="q">—— （前段） ——</p>
-        <p class="a">（本文…）</p>
+        <!-- ここから本文：質問/回答をクラスで分ける（タイポ＝文字設計） -->
+        <p class="q">—— 大学に入ってからは？ ——</p>
+        <p class="a">入学前に浪人したのですが、それもあって、大学に入ってからは「反骨心」の塊でした。<br>
+          高校までの自分って、すごい自分に自信があってプライドが高い人間だったんです。
+          なので、浪人をすることで同級生から 1 年遅れを取るのが、めちゃくちゃ許せなかった。<br>
+          それが大きいコンプレックスでした。</p>
 
-        <!-- ✅ 本文GIF部品 -->
-        <figure class="inline-media">
-          <div class="inline-media__frame">
-            <img src="assets/ep4-insert-01.gif" alt="EP4 本文挿絵" />
-          </div>
-          <figcaption class="inline-media__cap">（任意）</figcaption>
-        </figure>
+        <p class="q">—— ある意味周りの人の期待に縛られていたのかもしれないですね。
+            それがどんな大学生活に繋がったのですか？——</p>
+        <p class="a">「1 年遅れた分を取り返さなきゃ」っていう反骨心もあって、<br>
+            大学 1 年生の 1 月から「知るカフェ」ってインターンを始めました。<br>
+         で、大学 2 年生の 9 月から店長を任されました。</p>
 
+        <p class="q">—— 生い立ちや家族のことも、簡単に教えてもらえますか？ ——</p>
+        <p class="a">
+          家族は7人家族で、父は銀行員、兄は国家公務員。ガッチガチに堅い家系なんですよ。<br>
+          僕は末っ子で自由に育ててもらったから、サラリーマン的なルールに縛られるのが嫌で、<br>
+          「ああはなりたくないな」ってある程度反面教師にしてました。
+        </p>
+
+        <p class="q">—— 銀行員に公務員、たしかにルールの上で生きているご両親なんですね。<br>
+それに反して、自由は手に入れられたんですか？
+ ——</p>
+        <p class="a">
+          いえ。小、中学校の時は全然。周りの期待に応えたいってとこが強くて。
+        </p>
+
+        <p class="q">—— 周りの期待に縛られてしまった？ ——</p>
+        <p class="a">
+          例えば、部活の選択。家族みんなテニス部だったのに、僕だけ野球を選びました。<br>
+理由は、小学生の頃の野球部のコーチに「お前がテニスをするのはもったいない」って言われたから。
+
+        </p>
+
+        <p class="q">—— 期待されてたんですね。 ——</p>
+        <p class="a">
+          すごいコーチのことが好きだったんで、その期待に応えたいなと思って野球部に入りました。<br>
+          中学、高校と続けましたが、動機の根底には常に「誰かに認められたい」という気持ちがありました。<br>
+         周りからの推薦もあったけど、野球部ではキャプテンしてましたね。
+
+        </p>
+
+    
+        <!-- 穴の動き（前半）の境界を後から調整するためのマーカー -->
         <div id="perforation-end-marker" aria-hidden="true"></div>
 
-        <!-- ✅ トリガー：B（言い切り）確定 -->
-        <div class="trigger-block js-trigger-block">
-          <p class="a">
-            「自分はこうありたい」っていう、心の内側から出てくる感覚を軸にして、意思決定して生きていくこと。
-          </p>
+        <!-- ここはEP1用の“上映トリガー”の置き場所（後で文章が決まったら入れ替える） -->
+        <div class="trigger-block">
+          <p class="q">—— （ここにEP1のキー場面が来たら上映） ——</p>
 
-          <p class="a keyline js-screen-trigger" data-screen-trigger>
-            それが、本当の幸せなんだなって。
+          <!-- 重要：この p に data-screen-trigger を付けると自動上映が走る -->
+          <p class="a keyline" data-screen-trigger>
+            ※ここをEP1の決め台詞に置き換えてください（到達で1〜2秒のフルスクリーン上映が入ります）
           </p>
         </div>
 
-        <p class="q">—— （続き） ——</p>
+        <p class="q">—— 続きをここに入れる ——</p>
         <p class="a">（本文続き…）</p>
+
       </article>
 
       <footer class="ep-footer">
@@ -81,6 +117,16 @@
       <div class="overlay-vignette" aria-hidden="true"></div>
       <div class="overlay-noise" aria-hidden="true"></div>
       <video class="overlay-media" id="overlayMedia" src="assets/ep4-kv.mp4" muted playsinline preload="auto"></video>
+    </div>
+  </div>
+
+  <!-- フルスクリーン上映オーバーレイ -->
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="overlay-stage" role="dialog" aria-label="Screen moment">
+      <div class="overlay-vignette" aria-hidden="true"></div>
+      <div class="overlay-noise" aria-hidden="true"></div>
+
+      <img class="screen-media" id="kvMedia" src="./assets/メディア最終の海.gif" alt="EP2 キービジュアル" />
     </div>
   </div>
 
