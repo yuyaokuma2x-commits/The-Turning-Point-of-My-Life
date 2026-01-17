@@ -11,7 +11,7 @@
   <!-- Top/Homeに合わせる：上部ナビ（中央寄せ、アクティブ下線） -->
   <header class="site-header">
     <nav class="top-nav" aria-label="Global navigation">
-      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="home.html">Home</a>
       <a class="nav-link" href="top.html">Top</a>
       <a class="nav-link is-active" href="EP1.html" aria-current="page">EP1</a>
       <a class="nav-link" href="EP2.html">EP2</a>
@@ -31,15 +31,14 @@
     <section class="glass-card">
       <!-- スクリーン（章KV）：contain + ビネット -->
       <div class="screen" aria-label="Episode key visual">
-        <!-- 推奨：mp4/webm（gifでもOK）。まずはvideoを置いて、なければimgへ切替でもOK -->
-        <video
-          class="screen-media"
-          id="kvMedia"
-          src="assets/メディア人形1.gif"
-          muted
-          playsinline
-          preload="auto"
-        ></video>
+        <div class="screen" aria-label="Episode key visual">
+       <img class="screen-media" id="kvMedia" src="./assets/メディア人形1.gif" alt="EP2 キービジュアル" />
+
+        <div class="vignette" aria-hidden="true"></div>
+        <div class="noise" aria-hidden="true"></div>
+      </div>
+
+      <div class="screen-divider" aria-hidden="true"></div>
 
         <!-- videoが無い場合の保険（使うならvideoをコメントアウトしてこっちに）
         <img class="screen-media" id="kvMedia" src="assets/ep1-kv.gif" alt="EP1 キービジュアル" />
@@ -125,25 +124,13 @@
     </section>
   </main>
 
-  <!-- フルスクリーン上映オーバーレイ -->
+<!-- フルスクリーン上映オーバーレイ -->
   <div class="overlay" id="overlay" aria-hidden="true">
     <div class="overlay-stage" role="dialog" aria-label="Screen moment">
       <div class="overlay-vignette" aria-hidden="true"></div>
       <div class="overlay-noise" aria-hidden="true"></div>
 
-      <!-- 同じ素材を “contain” で見せる -->
-      <video
-        class="overlay-media"
-        id="overlayMedia"
-        src="assets/メディア人形1.gif"
-        muted
-        playsinline
-        preload="auto"
-      ></video>
-
-      <!-- videoが無い場合
-      <img class="overlay-media" id="overlayMedia" src="assets/ep1-kv.gif" alt="" />
-      -->
+      <img class="screen-media" id="kvMedia" src="./assets/メディア人形1.gif alt="EP2 キービジュアル" />
     </div>
   </div>
 
