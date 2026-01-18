@@ -163,13 +163,24 @@
   line-height: 1.8;
 }
 
+/* 変更：start → stretch */
 .ep__row{
   margin-top: 14px;
   display: grid;
   grid-template-columns: 420px 1fr;
   gap: 22px;
-  align-items: start;
+  align-items: stretch;
 }
+
+/* 追加：右のテキストだけ縦中央寄せ */
+.ep__text{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
 .ep__thumb{
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -228,6 +239,20 @@
   opacity: .85;
 }
 .topFooter__back:hover{ opacity: 1; }
+
+/* EP1だけ：GIFの余白を押し出すズーム（中心＝人形を守る） */
+.ep__thumb img.is-zoomCenter{
+  transform: scale(1.35);
+  transform-origin: 50% 50%;
+}
+
+
+/* EP2だけ：倍率を別で調整したい時 */
+.ep__thumb img.ep2-zoom{
+  transform: scale(1.7);
+  transform-origin: 50% 50%;
+}
+
 
 @media (max-width: 880px){
   .topbar{ grid-template-columns: 84px 1fr 160px; height: 64px; }
