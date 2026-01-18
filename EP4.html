@@ -96,6 +96,7 @@
           <p class="a keyline" data-screen-trigger>
             「外から求められることに応えること」が、本当に幸せなのか？って疑ったんですよね。
           </p>
+          </div>
     
         <p class="a">
           それまでの僕って、ずっと「人の期待に応えること」が幸せだったんです。<br>
@@ -129,6 +130,12 @@
             前は、「この人と関わることで、自分にどんなメリットがあるか」って、無意識に考えてたと思うんです。<br>
             でも今は、一人一人との関係の「深さ」の方が大事だなって思うようになりました。
          </p>
+
+         <div class="inline-media" aria-label="本文挿絵">
+  <div class="inline-media__frame">
+    <img src="./assets/メディア最終糸.gif" alt="挿絵" />
+  </div>
+</div>
 
          <p class="q">—— 今、いちばん大事にしていることは？ ——</p>
         <p class="a">自分が関わることで、相手が1ミリでもポジティブになってくれたらいいな、ってことですね。<br>
@@ -178,16 +185,17 @@
   </main>
 
   
+<!-- フルスクリーン上映オーバーレイ（1個だけ） -->
+<div class="overlay" id="overlay" aria-hidden="true">
+  <div class="overlay-stage" role="dialog" aria-label="Screen moment">
+    <div class="overlay-vignette" aria-hidden="true"></div>
+    <div class="overlay-noise" aria-hidden="true"></div>
 
-  <!-- フルスクリーン上映オーバーレイ -->
-  <div class="overlay" id="overlay" aria-hidden="true">
-    <div class="overlay-stage" role="dialog" aria-label="Screen moment">
-      <div class="overlay-vignette" aria-hidden="true"></div>
-      <div class="overlay-noise" aria-hidden="true"></div>
-
-      <img class="screen-media" id="kvMedia" src="./assets/メディア人形開花.gif" alt="EP2 キービジュアル" />
-    </div>
+    <!-- 全体上映で出したいGIF -->
+    <img class="overlay-media" id="overlayMedia" src="./assets/メディア人形開花.gif" alt="EP4 キービジュアル" />
   </div>
+</div>
+
   </div>
 
   <script src="EP4.js"></script>
