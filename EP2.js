@@ -72,7 +72,7 @@
     pulseNoise(overlayNoise, 140);
     await tryPlay(overlayMedia);
 
-    const duration = 1200 + Math.random() * 600; // 1.2〜1.8s
+    const duration = 3000 + Math.random() * 600; // 1.2〜1.8s
 
     window.setTimeout(() => {
       overlay.classList.remove("is-in");
