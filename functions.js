@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const intro = document.getElementById("intro");
   const flash = document.getElementById("flash");
 
-  const MS = 3000; // 3秒
+  const MS = 5000; // 3秒
 
   // 安全ガード（要素が無いときは何もしない）
   if (!splash || !intro) return;
