@@ -385,6 +385,14 @@ html.is-scene2 .centerText__s1{
   transform-origin: center;
 }
 
+/* EP3カードだけ：素材内余白を押し出す */
+.is-zoomEp3{
+  transform: scaleX(1.5);
+  transform: scale(1.8);
+  transform-origin: 50% 50%;
+}
+
+
 
 /* 8枚(=2周)ある前提で、半分(=1周分)だけ移動してループ */
 @keyframes ep-marquee{

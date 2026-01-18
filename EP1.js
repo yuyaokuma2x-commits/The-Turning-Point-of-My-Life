@@ -90,7 +90,7 @@
     await tryPlay(overlayMedia);
 
     // 上映尺：1〜2秒の範囲（固定でもOK）
-    const duration = 1200 + Math.random() * 600; // 1.2〜1.8s
+    const duration = 3000 + Math.random() * 600; // 1.2〜1.8s
 
     window.setTimeout(() => {
       // 戻りB：消える直前に一瞬フリッカー（ノイズも同調）
