@@ -253,6 +253,12 @@
   transform-origin: 50% 50%;
 }
 
+/* EP4だけ：倍率を別で調整したい時 */
+.ep__thumb img.ep4-zoom{
+  transform: scale(1.4);
+  transform-origin: 50% 50%;
+}
+
 
 @media (max-width: 880px){
   .topbar{ grid-template-columns: 84px 1fr 160px; height: 64px; }
