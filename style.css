@@ -380,6 +380,12 @@ html.is-scene2 .centerText__s1{
   animation: ep-marquee 20s linear infinite; /* ← 速度：普通 */
 }
 
+.epCard--ep2 img{
+  transform: scale(1.8);
+  transform-origin: center;
+}
+
+
 /* 8枚(=2周)ある前提で、半分(=1周分)だけ移動してループ */
 @keyframes ep-marquee{
   from { transform: translateX(0); }
@@ -429,19 +435,7 @@ html.is-scene2 .centerText__s1{
   text-decoration: none;
 }
 
-/* EPカード内の画像/GIFを枠いっぱいに */
-.epCard img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;        /* これが肝：枠にフィット（はみ出しはトリミング） */
-  object-position: center;
-  display: block;
-}
 
-/* もし親の高さが効いてない場合に備えて */
-.epCard{
-  overflow: hidden;
-}
 
 
 /* 下と距離とる */
