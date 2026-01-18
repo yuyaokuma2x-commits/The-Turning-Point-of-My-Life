@@ -27,29 +27,41 @@
   </header>
 
   <section class="stageHero" aria-label="Stage">
-    <div class="stageHero__inner">
-        <div class="heroBg" aria-hidden="true"></div>
-      <div class="stageHero__copy">
-        <h1 class="stageHero__title">ほんとうの幸せに気づくまで</h1>
-        <p class="stageHero__text">
-          借り物の正解では幸せになれない。<br>
-        「何者か」になりたくて、他人の地図を歩き続けた。<br>
-          虚飾の成功と友人の死が教えてくれたものとは。
-        </p>
-      </div>
+  <div class="stageHero__inner">
+    <!-- 画像：要素として差し込み（トリミングOK） -->
+    <img
+      class="stageHero__image"
+      src="./assets/メディア最終キービジュ.PNG"
+      alt=""
+      aria-hidden="true"
+    />
 
-      <a class="stageHero__play" href="./top.html" aria-label="Topへ（再生）">▶︎ 再生</a>
-    </div>
-  </section>
+    <!-- 暗幕（既存の背景レイヤーとして残す） -->
+    <div class="heroBg" aria-hidden="true"></div>
+
+    <div class="stageHero__copy">
+  <h1 class="stageHero__title">ほんとうの幸せに気づくまで</h1>
+  <p class="stageHero__text">
+    借り物の正解では幸せになれない。<br />
+    「何者か」になりたくて、他人の地図を歩き続けた。<br />
+    虚飾の成功と友人の死が教えてくれたものとは。
+  </p>
+
+  <!-- ここに移動（文字の下に来る） -->
+  <a class="stageHero__play" href="./top.html" aria-label="Topへ（再生）">▶ 再生</a>
+</div>
+
+</section>
+
 
   <div id="epTrack" class="epRail__track">
   <a class="epCard" href="./EP1.html" aria-label="EP1へ">
-    <img src="./assets/ep1.png" alt="EP1 メインイラスト" />
+    <img src="./assets/メディア最終-目.gif" alt="EP1 メインイラスト" />
     <div class="epCard__label">EP1</div>
   </a>
 
   <a class="epCard" href="./EP2.html" aria-label="EP2へ">
-    <img src="./assets/海gif.gif" alt="EP2 メインイラスト" />
+    <img src="./assets/メディア最終-心.gif" alt="EP2 メインイラスト" />
     <div class="epCard__label">EP2</div>
   </a>
 

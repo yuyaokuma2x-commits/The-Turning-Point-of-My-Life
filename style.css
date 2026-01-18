@@ -228,26 +228,37 @@ html.is-scene2 .centerText__s1{
 
 /* 上の大枠 */
 .stageHero{ padding: 22px 22px 0; }
-.stageHero__inner{
-  position:relative;
-  height: 360px;
-  border-radius: 26px;
-  overflow:hidden;
-  background: radial-gradient(140% 120% at 50% 20%, rgba(255,255,255,.14), rgba(0,0,0,.85));
-  border: 1px solid rgba(255,255,255,.10);
-  box-shadow: 0 24px 60px rgba(0,0,0,.55);
+/* ヒーロー内の重なりを固定 */
+.stageHero__inner {
+  min-height: 650px; /* いまの見え方に合わせて 480〜600 くらいで調整 */
 }
-.stageHero__copy{
-  position:absolute;
-  left: 34px;
-  top: 120px;
-  width:min(520px, 70%);
-  padding: 18px 20px;
-  background: rgba(255,255,255,.18);
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 16px;
-  backdrop-filter: blur(10px);
+
+
+.stageHero__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
 }
+
+/* 暗幕があるなら中間レイヤーに */
+.heroBg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* タイトル箱を最前面へ */
+.stageHero__copy,
+.stageHero__play {
+  position: relative;
+  z-index: 2;
+  color: #fff; /* これがないと見えないことが多い */
+}
+
 .stageHero__title{
   margin:0 0 10px;
   font-size: 24px;
@@ -418,6 +429,21 @@ html.is-scene2 .centerText__s1{
   text-decoration: none;
 }
 
+/* EPカード内の画像/GIFを枠いっぱいに */
+.epCard img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* これが肝：枠にフィット（はみ出しはトリミング） */
+  object-position: center;
+  display: block;
+}
+
+/* もし親の高さが効いてない場合に備えて */
+.epCard{
+  overflow: hidden;
+}
+
+
 /* 下と距離とる */
 .epRail{ margin-top: 32px; }
 
@@ -453,3 +479,112 @@ html.is-scene2 .centerText__s1{
   background-position: center;
 }
 
+
+/* 画像 < 暗幕 < 文字 の順に固定 */
+.stageHero__image { z-index: 0 !important; }
+.heroBg { z-index: 1 !important; }
+
+/* 文字を必ず前面＆白に固定 */
+.stageHero__copy,
+.stageHero__play {
+  z-index: 3 !important;
+  color: #fff !important;
+  opacity: 1 !important;
+}
+
+/* h1/pが個別に色指定されてても白にする */
+.stageHero__copy * {
+  color: #fff !important;
+}
+
+/* 視認性ちょい上げ（任意） */
+.stageHero__copy {
+  text-shadow: 0 2px 12px rgba(0,0,0,.6);
+}
+
+/* 左下配置の基準 */
+.stageHero__inner{
+  position: relative !important;
+}
+
+/* 文字ブロックを左下へ */
+.stageHero__copy{
+  position: absolute !important;
+  left: 48px !important;
+  bottom: 140px !important; /* 再生ボタンの上に置く分。好みで調整 */
+  z-index: 10 !important;
+
+  max-width: 560px;
+  text-align: left;
+}
+
+/* 再生ボタンも左下へ（もし一緒に動かしたい場合） */
+.stageHero__play{
+  position: absolute !important;
+  left: 48px !important;
+  bottom: 48px !important;
+  z-index: 10 !important;
+}
+
+.stageHero__inner{ position: relative !important; }
+
+/* 文字ブロックを左下に固定 */
+.stageHero__copy{
+  position: absolute !important;
+  left: 48px !important;
+  bottom: 68px !important;
+  z-index: 10 !important;
+  max-width: 560px;
+  color: #fff !important;
+}
+
+/* 再生ボタン：消えない＆中身の縦ズレも直す（最終パッチ） */
+.stageHero__play{
+  /* 表示保証 */
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+
+  /* 位置保証：いまはcopyの中に入れてる想定なので流れに戻す */
+  position: static !important;
+
+  /* 見た目保証 */
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+
+  line-height: 1 !important;
+  padding: 16px 28px !important;
+  border-radius: 14px !important;
+
+  background: #ff3b30 !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+
+  margin-top: 24px !important; /* 文字の下に */
+  z-index: 20 !important;      /* 念のため */
+}
+
+/* ボタン内の文字要素があってもズレないように */
+.stageHero__play *{
+  line-height: 1 !important;
+}
+
+
+
+
+
+/* スマホ用 */
+@media (max-width: 768px){
+  .stageHero__copy{
+    left: 20px !important;
+    bottom: 110px !important;
+    max-width: calc(100% - 40px);
+  }
+  .stageHero__play{
+    left: 20px !important;
+    bottom: 20px !important;
+  }
+}
